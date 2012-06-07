@@ -1,0 +1,6 @@
+@authors: pargles and abilio
+
+OBS: o Parser nao trata argumentos invalidos, segue apenas a especificao definida em :
+https://docs.google.com/a/inf.ufpel.edu.br/viewer?a=v&pid=sites&srcid=aW5mLnVmcGVsLmVkdS5icnxwaWxsYXxneDo1YjgxMTE3MjFhY2U1OTA4
+
+Testes realizados:

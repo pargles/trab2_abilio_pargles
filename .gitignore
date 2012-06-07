@@ -1,12 +1,11 @@
 # Compiled Object files
-*.slo
-*.lo
 *.o
 
-# Compiled Dynamic libraries
-*.so
+#temporary files
+*~
 
-# Compiled Static libraries
-*.lai
-*.la
-*.a
+#librarys
+nbproject
+build
+dist
+.dep.inc
