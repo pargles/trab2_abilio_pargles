@@ -10,6 +10,8 @@ Parser::Parser() {
     this->bl = 0;
     this->lb = 0;
     this->numeroBloco=0;
+    this->particaoA ;
+    this->particaoB ;
 }
 
 /**
@@ -113,7 +115,11 @@ void Parser::setParticaoB(string Particao) {
 void Parser::parse(vector<string> Arguments) {
 	for(unsigned int i = 0; i < Arguments.size(); i++)
 		if(Arguments[i].compare("-vf") == 0)
-			this->vf = 1;//1.1
+                {
+                    this->vf = 1;//1.1
+                    this->setParticaoA(Arguments[i+1]);
+                    this->setParticaoA(Arguments[i+2]);
+                }
 		else if(Arguments[i].compare("-bl") == 0)
 			this->bl = 2;//1.2
 		else if(Arguments[i].compare("-bd") == 0)

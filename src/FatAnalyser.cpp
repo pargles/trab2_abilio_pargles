@@ -1,5 +1,5 @@
 #include "../inc/FatAnalyser.h"
-#include "../inc/Parser.h"
+
 /**
 	@brief Inicializa os atributos da classe FatAnalyser com valores default.
  *      e recebe o parse como parametro
@@ -8,7 +8,9 @@
 */
 FatAnalyser::FatAnalyser(Parser *parse) {
     this->parser = parse;
-    
+    string diretorio = "/home/pargles/Documentos/disco";
+    this->fat1 = new disco(diretorio);
+
 }
 
 /**
@@ -19,6 +21,8 @@ void FatAnalyser::run() {
 
     if(parser->verificaFats())
         verificarParticoesFat(parser->getParticaoA(), parser->getParticaoB());
+        fat1->listarConteudo();
+        fat1->fecharReader();  
     if(parser->blocosLivres())
         imprimiListaDeBlocosLivres();
     if(parser->blocoComDados())
