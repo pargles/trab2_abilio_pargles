@@ -9,7 +9,7 @@
 FatAnalyser::FatAnalyser(Parser *parse) {
     this->parser = parse;
     string diretorio = "/home/pargles/Documentos/disco";
-    this->fat1 = new disco(diretorio);
+    this->fat1 = new Fat(diretorio);
 
 }
 
@@ -21,7 +21,12 @@ void FatAnalyser::run() {
 
     if(parser->verificaFats())
         verificarParticoesFat(parser->getParticaoA(), parser->getParticaoB());
-        fat1->listarConteudo();
+        //fat1->listarConteudo();
+        //fat1->listarClusterInicial();
+        //fat1->listarCluster(0);
+    fat1->listarInformacoesCabecalho();
+    fat1->listarFAT();
+    fat1->adicionarEntradas();
         fat1->fecharReader();  
     if(parser->blocosLivres())
         imprimiListaDeBlocosLivres();

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../inc/Parser.h"
-#include "../inc/disco.h"
+#include "../inc/Fat.h"
 #include <iostream>
 #include <string>
 #include <cmath>
@@ -13,7 +13,7 @@
 class FatAnalyser {
 private:
     Parser *parser;
-    disco *fat1,*fat2;
+    Fat *fat1,*fat2;
     void verificarParticoesFat(string particaoA, string parlticaoB);
     void imprimiListaDeBlocosLivres();
     void imprimirListaDeBlocosComDados();

@@ -23,14 +23,19 @@
  * - 16MB tamanho maximo de arquivo
  * - 12 caracters para o nome de cada arwquivo, 8 para nome 1 para o ponto e 3 para extensao
  * - 2^12 clusters  = 4.096 (4K) clusters ou unidades de alocação ( que são um um grupo de setores (do disco))
+ * - cluster sizes 512b to 4k
  * - 2GB tamanho maximo da particao, por isso ainda usado em pen-drives cartoes ssd etc.
  * - Os volumes FAT não diferenciam maiúsculas de minúsculas.
- * http://pt.wikipedia.org/wiki/FAT_12
- * artigo muito bom:
+ * artigo sobre discos que fala algo sobre a fat:
  * http://www.clubedohardware.com.br/artigos/Limites-de-Capacidade-dos-Discos-Rigidos/1420/3
+ * trabalho de SO similar, porem cobra a parte dos arquivos:
  * http://asc.di.fct.unl.pt/~vad/SO/SO-0708/trab-fat.html
+ * muito bom: The FAT File System
  * http://www.c-jump.com/CIS24/Slides/FAT/lecture.html
+ * tem alguma coisa na wiki tbem:
  * http://en.wikipedia.org/wiki/File_Allocation_Table
+ * otimo site para aprender c++:
+ * http://www.cplusplus.com/doc/tutorial/files/
  * @author pargles and abilio
  * File:   testeme.cpp
  * Created on 7 de Junho de 2012, 11:02
@@ -54,7 +59,7 @@ int main(int argc, char * argv[]) {
 	vector<string> args; //coloca em um vetor todos os argumentos para posteriormente passar para o parcer
 	
 	for(int i = 0; i < argc; i++) // le cada argumento e coloca no vetor de string
-		args.push_back(argv[i]);
+		args.push_back(argv[i]); //adiciona elemento no final
 		
 	comandos->parse(args); // chama o parser passando o vetor com os argumentos
         printaItensSelecionados(comandos);

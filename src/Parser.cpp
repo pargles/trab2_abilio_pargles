@@ -5,48 +5,48 @@
 	@author pargles
 */
 Parser::Parser() {
-    this->vf = 1;//default apenas verifica as particoes
-    this->bd = 0;
-    this->bl = 0;
-    this->lb = 0;
+    this->vf = true;//default apenas verifica as particoes
+    this->bd = false;
+    this->bl = false;
+    this->lb = false;
     this->numeroBloco=0;
     this->particaoA ;
     this->particaoB ;
 }
 
 /**
-	@brief Retorna 1 se é para verificar duas fats ou 0 c.c.
+	@brief Retorna true se é para verificar duas fats ou 0 c.c.
 	@return int Verifica particoes Fat
 	@author pargles
 */
-int Parser::verificaFats() {
+bool Parser::verificaFats() {
 	return this->vf;
 }
 
 /**
-        @brief Retorna 1 se é para listar os blocos livres ou 0 caso contrario.
+        @brief Retorna true se é para listar os blocos livres ou 0 caso contrario.
         @return int Lista blocos livres
         @author pargles
  */
-int Parser::blocosLivres() {
+bool Parser::blocosLivres() {
     return this->bl;
 }
 
 /**
-        @brief Retorna 1 se é para listar os blocos que contem dados ou 0 c.c.
+        @brief Retorna true se é para listar os blocos que contem dados ou 0 c.c.
         @return int Verifica particoes Fat
         @author pargles
  */
-int Parser::blocoComDados() {
+bool Parser::blocoComDados() {
     return this->bl;
 }
 
 /**
-        @brief Retorna 1 se é para ler um determinado bloco ou 0 c.c.
+        @brief Retorna true se é para ler um determinado bloco ou 0 c.c.
         @return int ler determinado bloco
         @author pargles
  */
-int Parser::lerBloco() {
+bool Parser::lerBloco() {
     return this->lb;
 }
 
@@ -84,7 +84,7 @@ string Parser::getParticaoB() {
 	@author pargles
 */
 void Parser::setNumeroDoBloco(int numeroDoBloco) {
-	this->numeroBloco = numeroBloco;
+	this->numeroBloco = numeroDoBloco;
 }
 
 
@@ -116,17 +116,17 @@ void Parser::parse(vector<string> Arguments) {
 	for(unsigned int i = 0; i < Arguments.size(); i++)
 		if(Arguments[i].compare("-vf") == 0)
                 {
-                    this->vf = 1;//1.1
+                    this->vf = true;//1.1
                     this->setParticaoA(Arguments[i+1]);
                     this->setParticaoA(Arguments[i+2]);
                 }
 		else if(Arguments[i].compare("-bl") == 0)
-			this->bl = 2;//1.2
+			this->bl = true;//1.2
 		else if(Arguments[i].compare("-bd") == 0)
-			this->bd = 3;//1.3
+			this->bd = true;//1.3
 		else if(Arguments[i].compare("-lb") == 0)
                 {
-			this->lb = 4;//1.4
+			this->lb = true;//1.4
                         this->numeroBloco = atoi(Arguments[i+1].c_str());
                 }
 }

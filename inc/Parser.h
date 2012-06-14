@@ -14,10 +14,10 @@ using namespace std;
 class Parser {
 
 	private:
-            int vf;//1.1
-            int bl;//1.2
-            int bd;//1.3
-            int lb;//1.4
+            bool vf;//1.1
+            bool bl;//1.2
+            bool bd;//1.3
+            bool lb;//1.4
             int numeroBloco;//1.4
             string particaoA;
             string particaoB;
@@ -25,10 +25,10 @@ class Parser {
 	public:
 		Parser();
 
-                int verificaFats();//1.1
-                int blocosLivres();//1.2
-                int blocoComDados();//1.3
-                int lerBloco();//1.4
+                bool verificaFats();//1.1
+                bool blocosLivres();//1.2
+                bool blocoComDados();//1.3
+                bool lerBloco();//1.4
 
                 int getNumeroDoBloco();
                 string getParticaoA();
