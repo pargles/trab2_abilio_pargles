@@ -53,8 +53,8 @@ void printaItensSelecionados(Parser *argumentos) {
 }
 
 int main(int argc, char * argv[]) {
-	Parser * comandos = new Parser();
-	FatAnalyser * fatAnalyzer;
+	Parser *comandos = new Parser();
+	FatAnalyser *fatAnalyzer;
 
 	vector<string> args; //coloca em um vetor todos os argumentos para posteriormente passar para o parcer
 	

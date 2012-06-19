@@ -13,11 +13,12 @@
 class FatAnalyser {
 private:
     Parser *parser;
-    Fat *fat1,*fat2;
-    void verificarParticoesFat(string particaoA, string parlticaoB);
+    Fat *FAT;
+    void verificarParticoesFat();
     void imprimiListaDeBlocosLivres();
     void imprimirListaDeBlocosComDados();
     void lerBloco(int bloco);
+    void listarArquivo(int bloco);
 
 public:
 

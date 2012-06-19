@@ -38,12 +38,12 @@ public:
     void setNomeArquivo(string nomeDisco);
     string getNomeArquivo();
     void fecharReader();
-    void listarConteudo();
     void listarClusterInicial();
     void listarCluster(int numeroCluster);
     void listarInformacoesCabecalho();
     void listarFAT();
     void adicionarEntradas();
+    void listarEntradasFAT();
 
 };
 

@@ -18,9 +18,9 @@ class Parser {
             bool bl;//1.2
             bool bd;//1.3
             bool lb;//1.4
+            bool la;
             int numeroBloco;//1.4
-            string particaoA;
-            string particaoB;
+            string enderecoSistemaArquivos;
 
 	public:
 		Parser();
@@ -29,14 +29,13 @@ class Parser {
                 bool blocosLivres();//1.2
                 bool blocoComDados();//1.3
                 bool lerBloco();//1.4
+                bool listarArquivo();
 
                 int getNumeroDoBloco();
-                string getParticaoA();
-                string getParticaoB();
+                string getEnderecoSistemaArquivos();
 
                 void setNumeroDoBloco(int numeroBloco);
-                void setParticaoA(string Particao);
-                void setParticaoB(string Particao);
+                void setEnderecoSistemaArquivos(string Particao);
 		
 		void parse(vector<string> Arguments);
 

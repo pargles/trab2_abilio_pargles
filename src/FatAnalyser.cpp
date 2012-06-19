@@ -8,32 +8,29 @@
 */
 FatAnalyser::FatAnalyser(Parser *parse) {
     this->parser = parse;
-    string diretorio = "/home/pargles/Documentos/disco";
-    this->fat1 = new Fat(diretorio);
+    this->FAT = new Fat(parse->getEnderecoSistemaArquivos());
 
 }
-
 /**
-	@brief executa o analisador de fat 
-	@author pargles and abilio
-*/
+        @brief executa o analisador de fat
+        @author pargles and abilio
+ */
 void FatAnalyser::run() {
+    //FAT->adicionarEntradas();//sempre gera um vetor com todas as entradas, depois
+    //ja fica pronto para executar qualquer um dos parametros
+    FAT->listarInformacoesCabecalho();
 
-    if(parser->verificaFats())
-        verificarParticoesFat(parser->getParticaoA(), parser->getParticaoB());
-        //fat1->listarConteudo();
-        //fat1->listarClusterInicial();
-        //fat1->listarCluster(0);
-    fat1->listarInformacoesCabecalho();
-    fat1->listarFAT();
-    fat1->adicionarEntradas();
-        fat1->fecharReader();  
-    if(parser->blocosLivres())
+    if (parser->verificaFats())
+        verificarParticoesFat();
+    if (parser->blocosLivres())
         imprimiListaDeBlocosLivres();
-    if(parser->blocoComDados())
+    if (parser->blocoComDados())
         imprimirListaDeBlocosComDados();
-    if(parser->lerBloco())
+    if (parser->lerBloco())
         lerBloco(parser->getNumeroDoBloco());
+    if (parser->listarArquivo())
+        listarArquivo(parser->getNumeroDoBloco());
+    FAT->fecharReader();
 }
 
 
@@ -45,9 +42,9 @@ void FatAnalyser::run() {
  *      @param strings particaoA e particaoB
 	@author pargles and abilio
 */
-void FatAnalyser::verificarParticoesFat(string particaoA, string parlticaoB) {
+void FatAnalyser::verificarParticoesFat() {
 
-    cout << "DIF <item>:<fat1>,<fat2>";
+    cout << "DIF <item>:<fat1>,<fat2>\n";
 
 }
 
@@ -58,7 +55,7 @@ void FatAnalyser::verificarParticoesFat(string particaoA, string parlticaoB) {
 */
 void FatAnalyser::imprimiListaDeBlocosLivres() {
 
-    cout << "LIVRE 1,5,6,7";
+    cout << "LIVRE 1,5,6,7\n";
 
 }
 
@@ -71,7 +68,7 @@ void FatAnalyser::imprimiListaDeBlocosLivres() {
 */
 void FatAnalyser::imprimirListaDeBlocosComDados() {
 
-    cout << "REMOVIDOS 1,5,6,7";
+    cout << "REMOVIDOS 1,5,6,7\n";
 
 }
 
@@ -84,6 +81,18 @@ void FatAnalyser::imprimirListaDeBlocosComDados() {
 */
 void FatAnalyser::lerBloco(int bloco) {
 
-    cout << "asdqwe24534aqw1387";
+    FAT->listarCluster(bloco);
 
+}
+
+/**
+	@brief listar todo um arquivo que inicia no bloco X
+ *      Parâmetro na linha de comando: -lb <numero do bloco>
+        Imprime o bloco para a saída padrão sem formatação.
+ *      @param int posicao inicial do bloco a ser listado
+	@author pargles and abilio
+*/
+void FatAnalyser::listarArquivo(int bloco)
+{
+    cout << "not yet developed\n";
 }
