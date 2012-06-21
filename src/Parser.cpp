@@ -36,7 +36,7 @@ bool Parser::blocosLivres() {
         @author pargles
  */
 bool Parser::blocoComDados() {
-    return this->bl;
+    return this->bd;
 }
 
 /**

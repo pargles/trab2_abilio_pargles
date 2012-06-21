@@ -19,6 +19,8 @@ void FatAnalyser::run() {
     //FAT->adicionarEntradas();//sempre gera um vetor com todas as entradas, depois
     //ja fica pronto para executar qualquer um dos parametros
     FAT->listarInformacoesCabecalho();
+    FAT->inserirEntradasFat();//apenas o ler bloco nao precisa das entradas, portando elas
+    //sao alocadas em vetores antes de iniciar a execucao do programa
 
     if (parser->verificaFats())
         verificarParticoesFat();
@@ -43,8 +45,9 @@ void FatAnalyser::run() {
 	@author pargles and abilio
 */
 void FatAnalyser::verificarParticoesFat() {
-
-    cout << "DIF <item>:<fat1>,<fat2>\n";
+    
+    FAT->listarEntradasFAT();
+    //FAT->diferenciarFATs();
 
 }
 
@@ -54,9 +57,7 @@ void FatAnalyser::verificarParticoesFat() {
 	@author pargles and abilio
 */
 void FatAnalyser::imprimiListaDeBlocosLivres() {
-
-    cout << "LIVRE 1,5,6,7\n";
-
+    FAT->listarBlocosLivres();
 }
 
 /**

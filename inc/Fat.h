@@ -31,7 +31,10 @@ private:
     int setoresPorCluster;
     int numeroDeFATs;//usually 2
     ifstream Reader;//arquivo em c++
-    vector <unsigned short int> vetorDeEntradas;//short int tem 16 bits, vamos precisar de apenas 12 bits (FAT12)
+    int posicaoFat1;
+    int posicaoFat2;
+    vector <unsigned short int> vetorDeEntradasFat1;//short int tem 16 bits, vamos precisar de apenas 12 bits (FAT12)
+    vector <unsigned short int> vetorDeEntradasFat2;
 
 public:
     Fat(string enderecoArquivo);
@@ -42,9 +45,13 @@ public:
     void listarCluster(int numeroCluster);
     void listarInformacoesCabecalho();
     void listarFAT();
-    void adicionarEntradas();
+    vector <unsigned short int> adicionarEntradas(int posicaoInicialFat, vector <unsigned short int> vetor);
     void listarEntradasFAT();
-
+    void inserirEntradasFat();
+    unsigned short int lerDoisBytes(int posicaoInicial);
+    void diferenciarFATs();
+    void listarBlocosLivres();
+    bool eBlocoComDados(int numeroBloco);
 };
 
 
