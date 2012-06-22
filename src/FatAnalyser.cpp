@@ -18,7 +18,6 @@ FatAnalyser::FatAnalyser(Parser *parse) {
 void FatAnalyser::run() {
     //FAT->adicionarEntradas();//sempre gera um vetor com todas as entradas, depois
     //ja fica pronto para executar qualquer um dos parametros
-    FAT->listarInformacoesCabecalho();
     FAT->inserirEntradasFat();//apenas o ler bloco nao precisa das entradas, portando elas
     //sao alocadas em vetores antes de iniciar a execucao do programa
 
@@ -45,9 +44,9 @@ void FatAnalyser::run() {
 	@author pargles and abilio
 */
 void FatAnalyser::verificarParticoesFat() {
-    
-    FAT->listarEntradasFAT();
-    //FAT->diferenciarFATs();
+    //FAT->listarEntradasFAT();
+    FAT->fliparBitsFAT2();//TODO, desativar esse metodo na versao final, e so pra teste
+    FAT->diferenciarFATs();
 
 }
 
@@ -82,7 +81,7 @@ void FatAnalyser::imprimirListaDeBlocosComDados() {
 */
 void FatAnalyser::lerBloco(int bloco) {
 
-    FAT->listarCluster(bloco);
+    FAT->listarBloco(bloco);
 
 }
 
@@ -95,5 +94,5 @@ void FatAnalyser::lerBloco(int bloco) {
 */
 void FatAnalyser::listarArquivo(int bloco)
 {
-    cout << "not yet developed\n";
+    FAT->listarTabelaDiretorios();
 }

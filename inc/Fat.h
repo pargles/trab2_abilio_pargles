@@ -27,12 +27,17 @@ using namespace std;
 class Fat {
 private:
     string nomeArquivo;
-    int bytesPorSetor;//default 512 bytes
-    int setoresPorCluster;
+    int bytesPorSetor;//usually 512 bytes
+    int setoresPorBloco;
+    int quantidadeSetoresCabecalho;
     int numeroDeFATs;//usually 2
+    int quantidadeSetoresFat;//tamanho da fat em setores
+    int tamanhoCadaBloco;
+    int numeroMaximoArquivos;
     ifstream Reader;//arquivo em c++
     int posicaoFat1;
     int posicaoFat2;
+    int posicaoDiretorioArquivos;
     vector <unsigned short int> vetorDeEntradasFat1;//short int tem 16 bits, vamos precisar de apenas 12 bits (FAT12)
     vector <unsigned short int> vetorDeEntradasFat2;
 
@@ -41,17 +46,19 @@ public:
     void setNomeArquivo(string nomeDisco);
     string getNomeArquivo();
     void fecharReader();
-    void listarClusterInicial();
-    void listarCluster(int numeroCluster);
+    void listarBloco(int numeroBloco);
+    void inicializarInformacoesCabecalho();
     void listarInformacoesCabecalho();
-    void listarFAT();
+    void listarFAT(int numeroFat);
     vector <unsigned short int> adicionarEntradas(int posicaoInicialFat, vector <unsigned short int> vetor);
     void listarEntradasFAT();
     void inserirEntradasFat();
-    unsigned short int lerDoisBytes(int posicaoInicial);
+    unsigned short int lerBytes(int posicaoInicial, int quantosBytes);
     void diferenciarFATs();
     void listarBlocosLivres();
     bool eBlocoComDados(int numeroBloco);
+    void listarTabelaDiretorios();
+    void fliparBitsFAT2();
 };
 
 
