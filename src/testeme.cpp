@@ -10,6 +10,7 @@
  * bs significa block size
  * count é quantas vezes ele conta o bs
  * mkfs.vfat -F12 disco
+ * http://linux.about.com/od/embedded/l/blcmdl8_mkfsvfa.htm
  * para visualizar arquivos binarios pode-se utilizar o bless:
  * http://home.gna.org/bless/downloads.html
  * flags do comando mount:

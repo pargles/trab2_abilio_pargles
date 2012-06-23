@@ -58,6 +58,7 @@ public:
     void listarBlocosLivres();
     bool eBlocoComDados(int numeroBloco);
     void listarTabelaDiretorios();
+    void imprimirArquivoCompleto(int bloco);
     void fliparBitsFAT2();
 };
 

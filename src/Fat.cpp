@@ -184,7 +184,7 @@ void Fat::listarEntradasFAT()
     for(register int i = 0 ;i<vetorDeEntradasFat1.size();i++)
     {
         byte+=3;
-        cout << i << " :            " << vetorDeEntradasFat1[i]<< "          ";
+        cout << i <<dec<< " :            " << vetorDeEntradasFat1[i]<< "          ";
         cout << vetorDeEntradasFat2[i]<<endl;
         //getchar();
         //cout<< " hex: " << hex << vetorDeEntradas[i]<<endl;
@@ -203,7 +203,7 @@ void Fat::diferenciarFATs()
     {
         if(vetorDeEntradasFat1[i]!=vetorDeEntradasFat2[i])
         {
-            cout << "DIF <" << i << ">:<" << vetorDeEntradasFat1[i] << ">,<" << vetorDeEntradasFat2[i]<< ">\n";
+            cout << "DIF <" << i <<dec << ">:<" << vetorDeEntradasFat1[i] << ">,<" << vetorDeEntradasFat2[i]<< ">\n";
         }
     }
 }
@@ -220,7 +220,7 @@ void Fat::listarBlocosLivres()
     {        
         if(vetorDeEntradasFat1[i]== 0)//se o indice contem 0 e porque a FAT nao esta apontando
         {
-            cout << i << ",";
+            cout << i <<dec<< ",";
         }
     }
     cout << endl;
@@ -239,6 +239,17 @@ bool Fat::eBlocoComDados(int numeroBloco)
 
 }
 
+void Fat::imprimirArquivoCompleto(int bloco)
+{
+    int blocoAtual = bloco;
+    while(blocoAtual != 0xff)
+    {
+        listarBloco(blocoAtual);
+        blocoAtual = vetorDeEntradasFat1.at(blocoAtual);
+    }
+    
+}
+
 
 void Fat::listarTabelaDiretorios()
 {
@@ -253,7 +264,7 @@ void Fat::listarTabelaDiretorios()
         if(!palavras[0]==0)//entrada esta vazia, nao precisa printar
         {
             cout << i+1;
-            if(palavras[0]==0xe5)//arquivo deletado, mas ainda esta com as informacoes no bloco
+            if(palavras[0]==229)//0xe5 = 229 , arquivo deletado, mas ainda esta com as informacoes no bloco
             {
                 cout << "deletado ";
             }
@@ -295,6 +306,15 @@ void Fat::fliparBitsFAT2()
     temp.write(erro,1);//1 byte
     temp.seekp(posicaoInicialFat2+23, ios::beg);//ios::beg e para dar o seek a partir do inicio do arquivo
     erro[0] = '1';
+    temp.write(erro,1);//1 byte
+    temp.seekp(posicaoInicialFat2+45, ios::beg);//ios::beg e para dar o seek a partir do inicio do arquivo
+    erro[0] = 'e';
+    temp.write(erro,1);//1 byte
+    temp.seekp(posicaoInicialFat2+204, ios::beg);//ios::beg e para dar o seek a partir do inicio do arquivo
+    erro[0] = '5';
+    temp.write(erro,1);//1 byte
+    temp.seekp(posicaoInicialFat2+604, ios::beg);//ios::beg e para dar o seek a partir do inicio do arquivo
+    erro[0] = '9';
     temp.write(erro,1);//1 byte
     temp.close();
 
