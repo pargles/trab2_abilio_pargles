@@ -47,17 +47,16 @@ void Fat::inicializarInformacoesCabecalho()
     posicaoFat1 = quantidadeSetoresCabecalho*bytesPorSetor;//depois do cabecalho inicia a Fat1
     posicaoFat2 = posicaoFat1 + quantidadeSetoresFat*bytesPorSetor;//depois da Fat1 inicia a Fat2
     posicaoDiretorioArquivos = posicaoFat2+quantidadeSetoresFat*bytesPorSetor;//diretorio de arquivos inicia depois da fat2
-    listarInformacoesCabecalho();
 }
 
 void Fat::listarInformacoesCabecalho()
 {
-    cout << "Numero maximo de arquivos: "<<numeroMaximoArquivos<<endl;
-    cout << "Bytes por setor: "<< bytesPorSetor<<endl;
-    cout << "Setores por bloco: "<< setoresPorBloco<<endl;
-    cout << "Setores para o cabecalho: "<<quantidadeSetoresCabecalho<<endl;
-    cout << "Numero de FATs: "<< numeroDeFATs<<endl;
-    cout << "Quantidade de setores de cada FAT: "<< quantidadeSetoresFat<<endl;
+    cout << "Numero maximo de arquivos: "<<dec<<numeroMaximoArquivos<<endl;
+    cout << "Bytes por setor: "<<dec<< bytesPorSetor<<endl;
+    cout << "Setores por bloco: "<<dec<< setoresPorBloco<<endl;
+    cout << "Setores para o cabecalho: "<<dec<<quantidadeSetoresCabecalho<<endl;
+    cout << "Numero de FATs: "<<dec<< numeroDeFATs<<endl;
+    cout << "Quantidade de setores de cada FAT: "<<dec<< quantidadeSetoresFat<<endl;
     cout << "Posicao Fat1 (hexadecimal): ";
     cout << hex << posicaoFat1 << endl;
     cout << "Posicao Fat2 (hexadecimal): ";
@@ -72,6 +71,7 @@ void Fat::listarInformacoesCabecalho()
  *      @param numero do bloco a ser listado
  *      @author pargles and abilio
  */
+//TODO, verificar se o bloco inicia da area de dados, ou abrange toda o sistema de arquivos
 void Fat::listarBloco(int numeroBloco)
 {
     char *byte = new char[1];
@@ -177,11 +177,13 @@ void Fat::inserirEntradasFat()
     return vetor;
 }
 
+
+ //TODO, conferir se esta gerando o numero correto de entradas
 void Fat::listarEntradasFAT()
 {
     int byte =0x200;
     cout << "ENTRADA  |     FAT1       | FAT2        |"<<endl;
-    for(register int i = 0 ;i<vetorDeEntradasFat1.size();i++)
+    for(register int i = 0 ;i<20;i++)
     {
         byte+=3;
         cout << i <<dec<< " :            " << vetorDeEntradasFat1[i]<< "          ";
@@ -197,13 +199,14 @@ void Fat::listarEntradasFAT()
 *       e indica as diferencas caso existam
 *	@author pargles and abilio
 */
+//TODO, conferir metodo listarENtradasFat
 void Fat::diferenciarFATs()
 {
     for(register int i = 0 ;i<vetorDeEntradasFat1.size();i++)
     {
         if(vetorDeEntradasFat1[i]!=vetorDeEntradasFat2[i])
         {
-            cout << "DIF <" << i <<dec << ">:<" << vetorDeEntradasFat1[i] << ">,<" << vetorDeEntradasFat2[i]<< ">\n";
+            cout << "DIF <" <<dec <<i <<dec << ">:<" << vetorDeEntradasFat1[i] << ">,<" << vetorDeEntradasFat2[i]<< ">\n";
         }
     }
 }
@@ -250,32 +253,32 @@ void Fat::imprimirArquivoCompleto(int bloco)
     
 }
 
-
+//TODO, ver a correta distribuicao dos arquivos, como funciona
 void Fat::listarTabelaDiretorios()
 {
-    char *palavras = new char[32];//cada entrada do diretorio contem 32 bytes
+    char *palavras = new char[64];//cada entrada do diretorio contem 32 bytes
     unsigned short int endereco;
     register int i;//contador do laco for
     Reader.seekg(this->posicaoDiretorioArquivos, ios::beg);//ios::beg e para dar o seek a partir do inicio do arquivo
     cout << "nº"<<"  Nome   "<<"      Bloco inicial"<<endl;
-    for(i =0;i<numeroMaximoArquivos;i++)
+    for(i =0;i<20;i++)
     {
-        Reader.read(palavras, 32);//le 3 bytes por vez, colocando cada  byte em cada posicao do vetor palavras
+        Reader.read(palavras, 64);//le 3 bytes por vez, colocando cada  byte em cada posicao do vetor palavras
         if(!palavras[0]==0)//entrada esta vazia, nao precisa printar
         {
-            cout << i+1;
-            if(palavras[0]==229)//0xe5 = 229 , arquivo deletado, mas ainda esta com as informacoes no bloco
+            cout <<dec<< i+1;
+            if(palavras[0]==0xe5)//0xe5 = 229 , arquivo deletado, mas ainda esta com as informacoes no bloco
             {
                 cout << "deletado ";
             }
             else
             {
-                cout << " "<<palavras[0] << palavras[1] << palavras[2]<< palavras[3]<< palavras[4]<<palavras[5];
-                cout << palavras[6] << palavras[7] <<"."<< palavras[8]<< palavras[9]<< palavras[10];
+                cout << " "<<palavras[32] << palavras[33] << palavras[34]<< palavras[35]<< palavras[36]<<palavras[37];
+                cout << palavras[38] << palavras[39] <<"."<< palavras[40]<< palavras[41]<< palavras[42];
             }
-            endereco = palavras[21];
+            endereco = palavras[27];
             endereco = endereco << 8;//abre espaco para concatenar a proxima palavra (8 bits)
-            endereco = endereco | palavras[20];
+            endereco = endereco | palavras[26];
             cout <<"             "<< endereco<<endl;
         }
     }

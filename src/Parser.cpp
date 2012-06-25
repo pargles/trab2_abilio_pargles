@@ -9,6 +9,8 @@ Parser::Parser() {
     this->bd = false;
     this->bl = false;
     this->lb = false;
+    this->la = false;
+    this->inf = false;
     this->numeroBloco=0;
 }
 
@@ -50,12 +52,22 @@ bool Parser::lerBloco() {
 
 /**
         @brief Retorna true se é para listar um arquivo ou 0 c.c.
-        @return int ler determinado bloco
+        @return true para listar e false c.c.
         @author pargles
  */
 bool Parser::listarArquivo()
 {
     return this->la;
+}
+
+/**
+        @brief Retorna true se é para listar as informacoes do sistema de arquivos ou 0 c.c.
+        @return true para mostrar as informacoes e false c.c.
+        @author pargles
+ */
+bool Parser::listarInformacoes()
+{
+    return this->inf;
 }
 
 /**
@@ -115,6 +127,8 @@ void Parser::parse(vector<string> Arguments) {
                     this->lb = true;//1.4
                     this->numeroBloco = atoi(Arguments[i+1].c_str());
                 }
+                else if(Arguments[i].compare("-inf") == 0)
+                    this->inf = true;
                 else if(Arguments[i].compare("-la") == 0)
                 {
                     this->la = true;
@@ -123,6 +137,7 @@ void Parser::parse(vector<string> Arguments) {
                 else if(Arguments[i].compare("-help")==0)
                 {
                     cout << "-in nome_arquivo , use para especificar o nome da particao \n";
+                    cout << "-inf , use para mostrar as informacoes do sistema de arquivos \n";
                     cout << "-bl , use para listar os blocos livres \n";
                     cout << "-bd , use para listar os indices de todos os blocos livres e com conteudo \n";
                     cout << "-lb numero_bloco , use para imprimir um bloco sem formatacao \n";

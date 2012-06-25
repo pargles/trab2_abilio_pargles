@@ -49,10 +49,11 @@ void printaItensSelecionados(Parser *argumentos) {
     cout << "Imprimir Blocos Livres: " << (argumentos->blocosLivres() == 1 ? "sim" : "nao") << endl;
     cout << "Imprimir Blocos Com Dados: " << (argumentos->blocoComDados() == 1 ? "sim" : "nao") << endl;
     cout << "Ler Determinado Bloco: " << (argumentos->lerBloco() == 1 ? "sim" : "nao") << endl;
-    cout << "Bloco a ser listado: " << (argumentos->lerBloco() == 1 ? "10" : "----") << endl; //<<<====procurar como funciona funcao atoa
+    cout << "Bloco a ser listado: " << (argumentos->lerBloco() == 1 ? argumentos->getNumeroDoBloco() : -1) << endl; //<<<====procurar como funciona funcao atoa
     cout << endl;
 }
 
+//-in /home/pargles/Documentos/disco -inf -vf -bl -la 12
 int main(int argc, char * argv[]) {
 	Parser *comandos = new Parser();
 	FatAnalyser *fatAnalyzer;
