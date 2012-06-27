@@ -12,6 +12,7 @@ Parser::Parser() {
     this->la = false;
     this->inf = false;
     this->numeroBloco=0;
+    this->numeroBlocoArquivo=0;
 }
 
 /**
@@ -80,6 +81,15 @@ int Parser::getNumeroDoBloco() {
 }
 
 /**
+        @brief Retorna o numero do bloco inicial de um arquivo para ser listado.
+        @return int numero do bloco a ser lido
+        @author pargles
+ */
+int Parser::getNumeroBlocoArquivo() {
+    return this->numeroBlocoArquivo;
+}
+
+/**
         @brief Retorna o endereco do sistema de arquivos.
         @return string Particao A
         @author pargles
@@ -132,7 +142,7 @@ void Parser::parse(vector<string> Arguments) {
                 else if(Arguments[i].compare("-la") == 0)
                 {
                     this->la = true;
-                    this->numeroBloco = atoi(Arguments[i+1].c_str());
+                    this->numeroBlocoArquivo = atoi(Arguments[i+1].c_str());
                 }
                 else if(Arguments[i].compare("-help")==0)
                 {

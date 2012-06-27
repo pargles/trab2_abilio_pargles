@@ -64,7 +64,10 @@ int main(int argc, char * argv[]) {
 		args.push_back(argv[i]); //adiciona elemento no final
 		
 	comandos->parse(args); // chama o parser passando o vetor com os argumentos
-        printaItensSelecionados(comandos);
+        if(comandos->listarInformacoes())
+        {
+            printaItensSelecionados(comandos);
+        }
 	fatAnalyzer = new FatAnalyser(comandos);
 	fatAnalyzer->run();
 	return 0;

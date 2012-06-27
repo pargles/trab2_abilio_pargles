@@ -47,6 +47,7 @@ void Fat::inicializarInformacoesCabecalho()
     posicaoFat1 = quantidadeSetoresCabecalho*bytesPorSetor;//depois do cabecalho inicia a Fat1
     posicaoFat2 = posicaoFat1 + quantidadeSetoresFat*bytesPorSetor;//depois da Fat1 inicia a Fat2
     posicaoDiretorioArquivos = posicaoFat2+quantidadeSetoresFat*bytesPorSetor;//diretorio de arquivos inicia depois da fat2
+    posicaoInicialDados = posicaoDiretorioArquivos + numeroMaximoArquivos*32;//cada entrada da tabela de diretorios tem 32 bytes
 }
 
 void Fat::listarInformacoesCabecalho()
@@ -63,6 +64,8 @@ void Fat::listarInformacoesCabecalho()
     cout << hex << posicaoFat2 << endl;
     cout << "Posicao Diretorio de Arquivos (hexadecimal): ";
     cout << hex << posicaoDiretorioArquivos << endl;
+    cout << "Posicao Inicial Dados (hexadecimal): ";
+    cout << hex << posicaoInicialDados << endl;
 }
 
 /**
@@ -71,14 +74,16 @@ void Fat::listarInformacoesCabecalho()
  *      @param numero do bloco a ser listado
  *      @author pargles and abilio
  */
-//TODO, verificar se o bloco inicia da area de dados, ou abrange toda o sistema de arquivos
 void Fat::listarBloco(int numeroBloco)
 {
     char *byte = new char[1];
-    Reader.seekg(numeroBloco*tamanhoCadaBloco, ios::beg);//ios::beg e para dar o seek a partir do inicio do arquivo
-    for (register int i = 0; i < bytesPorSetor; i++) {
+    unsigned char temp;
+    if(numeroBloco<=1){cerr<<"Os blocos 0 e 1 nao são enderecaveis";exit(1);}
+    Reader.seekg((numeroBloco-2)*tamanhoCadaBloco + posicaoInicialDados, ios::beg);//ios::beg e para dar o seek a partir do inicio do arquivo
+    for (register int i = 0; i < tamanhoCadaBloco; i++) {
         Reader.read(byte, 1);//le byte por byte do arquivo 1 e um byte
-        cout << byte;
+        temp = byte[0];
+        cout <<dec<<temp;
     }
 
 }
@@ -108,23 +113,6 @@ unsigned short int Fat::lerBytes(int posicaoInicial, int quantosBytes)
     palavra = palavra << 8;//abre espaco para concatenar a proxima palavra (8 bits)
     palavra = palavra | temp1;
     return palavra;
-}
-
-/**
-*	@brief metodo que imprime byte a byte toda uma fat
- *      recebe por parametro qual a fat que deve ser listada
- *      @param numero da FAT a ser listada
-*	@author pargles and abilio
-*/
-void Fat::listarFAT(int numeroFat)
-{
-    char *byte = new char[1];
-    if(numeroFat == 1){Reader.seekg(this->posicaoFat1, ios::beg);}//ios::beg e para dar o seek a partir do inicio do arquivo}
-    else {Reader.seekg(this->posicaoFat2, ios::beg);}  
-    for (int i = 0; i < this->quantidadeSetoresFat*bytesPorSetor; i++) {
-        Reader.read(byte, 1);//le byte por byte do arquivo 1 e um byte
-        cout << byte;
-    }
 }
 
 /**
@@ -181,17 +169,14 @@ void Fat::inserirEntradasFat()
  //TODO, conferir se esta gerando o numero correto de entradas
 void Fat::listarEntradasFAT()
 {
-    int byte =0x200;
     cout << "ENTRADA  |     FAT1       | FAT2        |"<<endl;
     for(register int i = 0 ;i<20;i++)
     {
-        byte+=3;
         cout << i <<dec<< " :            " << vetorDeEntradasFat1[i]<< "          ";
         cout << vetorDeEntradasFat2[i]<<endl;
         //getchar();
         //cout<< " hex: " << hex << vetorDeEntradas[i]<<endl;
     }
-    cout<<"terminou no endereco: "<<hex<<byte<<endl;
 }
 
 /**
@@ -199,7 +184,6 @@ void Fat::listarEntradasFAT()
 *       e indica as diferencas caso existam
 *	@author pargles and abilio
 */
-//TODO, conferir metodo listarENtradasFat
 void Fat::diferenciarFATs()
 {
     for(register int i = 0 ;i<vetorDeEntradasFat1.size();i++)
@@ -239,7 +223,15 @@ void Fat::listarBlocosLivres()
 */
 bool Fat::eBlocoComDados(int numeroBloco)
 {
-
+    char *byte = new char[1];
+    unsigned char temp;
+    if(numeroBloco<=1){cerr<<"Os blocos 0 e 1 nao são enderecaveis";exit(1);}
+    Reader.seekg((numeroBloco-2)*tamanhoCadaBloco + posicaoInicialDados, ios::beg);//ios::beg e para dar o seek a partir do inicio do arquivo
+    for (register int i = 0; i < tamanhoCadaBloco; i++) {
+        Reader.read(byte, 1);//le byte por byte do arquivo 1 e um byte
+        temp = byte[0];
+        if(temp!=0){return true;}//tem algum dado
+    }
 }
 
 void Fat::imprimirArquivoCompleto(int bloco)
@@ -256,7 +248,7 @@ void Fat::imprimirArquivoCompleto(int bloco)
 //TODO, ver a correta distribuicao dos arquivos, como funciona
 void Fat::listarTabelaDiretorios()
 {
-    char *palavras = new char[64];//cada entrada do diretorio contem 32 bytes
+    char *palavras = new char[32];//cada entrada do diretorio contem 32 bytes
     unsigned short int endereco;
     register int i;//contador do laco for
     Reader.seekg(this->posicaoDiretorioArquivos, ios::beg);//ios::beg e para dar o seek a partir do inicio do arquivo
@@ -273,8 +265,8 @@ void Fat::listarTabelaDiretorios()
             }
             else
             {
-                cout << " "<<palavras[32] << palavras[33] << palavras[34]<< palavras[35]<< palavras[36]<<palavras[37];
-                cout << palavras[38] << palavras[39] <<"."<< palavras[40]<< palavras[41]<< palavras[42];
+                cout << " "<<palavras[0] << palavras[1] << palavras[2]<< palavras[3]<< palavras[4]<<palavras[5];
+                cout << palavras[6] << palavras[7] <<"."<< palavras[8]<< palavras[9]<< palavras[10];
             }
             endereco = palavras[27];
             endereco = endereco << 8;//abre espaco para concatenar a proxima palavra (8 bits)

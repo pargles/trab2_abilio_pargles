@@ -38,6 +38,7 @@ private:
     int posicaoFat1;
     int posicaoFat2;
     int posicaoDiretorioArquivos;
+    int posicaoInicialDados;
     vector <unsigned short int> vetorDeEntradasFat1;//short int tem 16 bits, vamos precisar de apenas 12 bits (FAT12)
     vector <unsigned short int> vetorDeEntradasFat2;
 

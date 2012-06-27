@@ -19,7 +19,7 @@ void FatAnalyser::run() {
     FAT->inserirEntradasFat();//apenas o metodo ler bloco nao precisa das entradas, portando elas
     //sao alocadas em vetores antes de iniciar a execucao do programa
     FAT->listarEntradasFAT();
-    FAT->listarBloco(3);
+    FAT->listarTabelaDiretorios();
     //FAT->fliparBitsFAT2();
     if(parser->listarInformacoes())
         FAT->listarInformacoesCabecalho();
@@ -32,7 +32,7 @@ void FatAnalyser::run() {
     if (parser->lerBloco())
         lerBloco(parser->getNumeroDoBloco());
     if (parser->listarArquivo())
-        listarArquivo(parser->getNumeroDoBloco());
+        listarArquivo(parser->getNumeroBlocoArquivo());
     FAT->fecharReader();
 }
 
@@ -96,6 +96,5 @@ void FatAnalyser::lerBloco(int bloco) {
 */
 void FatAnalyser::listarArquivo(int bloco)
 {
-    FAT->listarTabelaDiretorios();
-    //FAT->imprimirArquivoCompleto(bloco);
+    FAT->imprimirArquivoCompleto(bloco);
 }

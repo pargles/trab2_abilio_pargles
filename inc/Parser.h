@@ -21,6 +21,7 @@ class Parser {
             bool la;
             bool inf;
             int numeroBloco;//1.4
+            int numeroBlocoArquivo;
             string enderecoSistemaArquivos;
 
 	public:
@@ -34,6 +35,7 @@ class Parser {
                 bool listarInformacoes();
 
                 int getNumeroDoBloco();
+                int getNumeroBlocoArquivo();
                 string getEnderecoSistemaArquivos();
 
                 void setNumeroDoBloco(int numeroBloco);
