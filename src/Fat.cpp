@@ -83,7 +83,7 @@ void Fat::listarBloco(int numeroBloco)
     for (register int i = 0; i < tamanhoCadaBloco; i++) {
         Reader.read(byte, 1);//le byte por byte do arquivo 1 e um byte
         temp = byte[0];
-        cout <<dec<<temp;
+        cout <<hex<<temp;
     }
 
 }
@@ -166,16 +166,17 @@ void Fat::inserirEntradasFat()
 }
 
 
- //TODO, conferir se esta gerando o numero correto de entradas
+/**
+*	@brief metodo que lista todas as entradas da FAT1 e FAT2
+*	@author pargles and abilio
+*/
 void Fat::listarEntradasFAT()
 {
     cout << "ENTRADA  |     FAT1       | FAT2        |"<<endl;
-    for(register int i = 0 ;i<20;i++)
+    for(register int i = 0 ;i<this->vetorDeEntradasFat1.size();i++)
     {
         cout << i <<dec<< " :            " << vetorDeEntradasFat1[i]<< "          ";
         cout << vetorDeEntradasFat2[i]<<endl;
-        //getchar();
-        //cout<< " hex: " << hex << vetorDeEntradas[i]<<endl;
     }
 }
 
@@ -196,19 +197,54 @@ void Fat::diferenciarFATs()
 }
 
 /**
-*	@brief metodo que compara os dois vetores de entradas das fats
-*       e indica as diferencas caso existam
+*	@brief metodo que percorre as entradas da FAT
+*       informando os bloco livres (entrada da FAT = 0)
 *	@author pargles and abilio
 */
 void Fat::listarBlocosLivres()
 {
+    bool temVirgula = false;
     cout << "LIVRE ";
     for(register int i = 0 ;i<vetorDeEntradasFat1.size();i++)
     {        
         if(vetorDeEntradasFat1[i]== 0)//se o indice contem 0 e porque a FAT nao esta apontando
         {
             cout << i <<dec<< ",";
+            temVirgula = true;
         }
+    }
+    if(temVirgula)//testa se ja colocou alguma virgula na saida
+    {
+        cout<<'\b'<<" ";//tira a virgula da saida, apenas para ficar como a definicao do trabalho
+    }
+    cout << endl;
+}
+
+
+/**
+*	@brief metodo que percorre as entradas da FAT e informa quais blocos
+*       estao livres mas contem dados (quando a entrada da FAT tiver 0 o bloco esta livre
+ *      mas pode conter dados de um arquivo anterior)
+*	@author pargles and abilio
+*/
+void Fat::listarBlocosLivresComDados()
+{
+    cout << "REMOVIDOS ";
+    bool temVirgula=false;
+    for(register int i = 0 ;i<vetorDeEntradasFat1.size();i++)
+    {
+        if(vetorDeEntradasFat1[i]== 0)//se o indice contem valor igual a 0 e porque a FAT nao esta apontando para arquivo
+        {
+            if(eBlocoComDados(i))//mas o bloco vazio pode ter sido apagado e os dados continuam la
+            {
+                cout << i <<dec<< ",";//se o bloco contem dados e pq o arquivo foi excluido e a FAT nao aponta mais
+                temVirgula =true;
+            }
+        }
+    }
+    if(temVirgula)//testa se ja colocou alguma virgula na saida
+    {
+        cout<<'\b'<<" ";//tira a virgula da saida, apenas para ficar como a definicao do trabalho
     }
     cout << endl;
 }
@@ -237,7 +273,7 @@ bool Fat::eBlocoComDados(int numeroBloco)
 void Fat::imprimirArquivoCompleto(int bloco)
 {
     int blocoAtual = bloco;
-    while(blocoAtual != 0xff)
+    while(blocoAtual != 0xfff)//0xfff = 4095, termino do arquivo
     {
         listarBloco(blocoAtual);
         blocoAtual = vetorDeEntradasFat1.at(blocoAtual);
@@ -245,7 +281,7 @@ void Fat::imprimirArquivoCompleto(int bloco)
     
 }
 
-//TODO, ver a correta distribuicao dos arquivos, como funciona
+// METODO AINDA NAO VALIDADO. //TODO, verificar o correto funcionamento
 void Fat::listarTabelaDiretorios()
 {
     char *palavras = new char[32];//cada entrada do diretorio contem 32 bytes
@@ -255,13 +291,13 @@ void Fat::listarTabelaDiretorios()
     cout << "nº"<<"  Nome   "<<"      Bloco inicial"<<endl;
     for(i =0;i<20;i++)
     {
-        Reader.read(palavras, 64);//le 3 bytes por vez, colocando cada  byte em cada posicao do vetor palavras
+        Reader.read(palavras, 32);//le 3 bytes por vez, colocando cada  byte em cada posicao do vetor palavras
         if(!palavras[0]==0)//entrada esta vazia, nao precisa printar
         {
             cout <<dec<< i+1;
-            if(palavras[0]==0xe5)//0xe5 = 229 , arquivo deletado, mas ainda esta com as informacoes no bloco
+            if(palavras[0]=='A')//0xe5 = 229 , arquivo deletado, mas ainda esta com as informacoes no bloco
             {
-                cout << "deletado ";
+                cout << " deletado ";
             }
             else
             {
@@ -317,7 +353,7 @@ void Fat::fliparBitsFAT2()
 
 
 /**
-	@brief seta o endereco do disco.
+	@brief seta o endereco do sistema de arquivos.
 	@param string contendo o endereco do disco
 	@author pargles and abilio
 */
@@ -327,7 +363,7 @@ void Fat::setNomeArquivo(string enderecoDisco)
 }
 
 /**
-	@brief retorna o endereco do disco
+	@brief retorna o endereco do sistema de arquivos
 	@return string contendo o endereco do disco
 	@author pargles and abilio
 */

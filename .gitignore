@@ -8,4 +8,6 @@
 nbproject
 build
 dist
+bin
+obj
 .dep.inc

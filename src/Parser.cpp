@@ -152,7 +152,7 @@ void Parser::parse(vector<string> Arguments) {
                     cout << "-bd , use para listar os indices de todos os blocos livres e com conteudo \n";
                     cout << "-lb numero_bloco , use para imprimir um bloco sem formatacao \n";
                     cout << "-vf , use para verficar as diferencas entre as tabelas FAT1 e FAT2 \n";
-                    cout << "-la numero_bloco, use para listar todo o arquivo que comeca no bloco numero_bloco\n";
+                    cout << "-la numero_bloco, use para listar todo o arquivo que comeca no bloco (numero_bloco)\n";
                 }
 }
 

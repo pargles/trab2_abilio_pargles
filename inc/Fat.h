@@ -50,13 +50,13 @@ public:
     void listarBloco(int numeroBloco);
     void inicializarInformacoesCabecalho();
     void listarInformacoesCabecalho();
-    void listarFAT(int numeroFat);
     vector <unsigned short int> adicionarEntradas(int posicaoInicialFat, vector <unsigned short int> vetor);
     void listarEntradasFAT();
     void inserirEntradasFat();
     unsigned short int lerBytes(int posicaoInicial, int quantosBytes);
     void diferenciarFATs();
     void listarBlocosLivres();
+    void listarBlocosLivresComDados();
     bool eBlocoComDados(int numeroBloco);
     void listarTabelaDiretorios();
     void imprimirArquivoCompleto(int bloco);

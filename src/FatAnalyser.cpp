@@ -16,10 +16,10 @@ FatAnalyser::FatAnalyser(Parser *parse) {
         @author pargles and abilio
  */
 void FatAnalyser::run() {
-    FAT->inserirEntradasFat();//apenas o metodo ler bloco nao precisa das entradas, portando elas
-    //sao alocadas em vetores antes de iniciar a execucao do programa
+    FAT->inserirEntradasFat();//apenas o metodo ler bloco nao precisa das entradas, os outros 3 metodos necessitam,
+    // portando elas as entradas sao alocadas em vetores antes de iniciar a execucao do programa
     FAT->listarEntradasFAT();
-    FAT->listarTabelaDiretorios();
+    //FAT->listarTabelaDiretorios(); //----> METODO AINDA NAO VALIDADO
     //FAT->fliparBitsFAT2();
     if(parser->listarInformacoes())
         FAT->listarInformacoesCabecalho();
@@ -69,9 +69,7 @@ void FatAnalyser::imprimiListaDeBlocosLivres() {
 	@author pargles and abilio
 */
 void FatAnalyser::imprimirListaDeBlocosComDados() {
-
-    cout << "REMOVIDOS 1,5,6,7\n";
-
+    FAT->listarBlocosLivresComDados();
 }
 
 /**
