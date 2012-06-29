@@ -296,7 +296,7 @@ void Fat::listarTabelaDiretorios()
 	        if(!palavras[0]==0)//entrada esta vazia, nao precisa printar
 	        {
 	            cout <<dec<< i+1;
-	            if(palavras[0]-'0' & 'b')//0xe5 = 229 , arquivo deletado, mas ainda esta com as informacoes no bloco
+	            if(palavras[0]&146)//0xe5 = 229 , arquivo deletado, mas ainda esta com as informacoes no bloco
 	            {
 	                cout << " deletado ";
 	            }
