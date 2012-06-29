@@ -19,8 +19,9 @@ void FatAnalyser::run() {
     FAT->inserirEntradasFat();//apenas o metodo ler bloco nao precisa das entradas, os outros 3 metodos necessitam,
     // portando elas as entradas sao alocadas em vetores antes de iniciar a execucao do programa
     FAT->listarEntradasFAT();
-    //FAT->listarTabelaDiretorios(); //----> METODO AINDA NAO VALIDADO
     //FAT->fliparBitsFAT2();
+    if(parser->listarTabelaDiretorios())
+        FAT->listarTabelaDiretorios(); //----> METODO AINDA NAO VALIDADO
     if(parser->listarInformacoes())
         FAT->listarInformacoesCabecalho();
     if (parser->verificaFats())

@@ -11,6 +11,7 @@ Parser::Parser() {
     this->lb = false;
     this->la = false;
     this->inf = false;
+    this->tab = false;
     this->numeroBloco=0;
     this->numeroBlocoArquivo=0;
 }
@@ -69,6 +70,16 @@ bool Parser::listarArquivo()
 bool Parser::listarInformacoes()
 {
     return this->inf;
+}
+
+/**
+        @brief Retorna true se é para listar a tabela de diretorios.
+        @return true para mostrar as informacoes e false c.c.
+        @author abilio and pargles
+ */
+bool Parser::listarTabelaDiretorios()
+{
+    return this->tab;
 }
 
 /**
@@ -144,6 +155,8 @@ void Parser::parse(vector<string> Arguments) {
                     this->la = true;
                     this->numeroBlocoArquivo = atoi(Arguments[i+1].c_str());
                 }
+                else if(Arguments[i].compare("-tab") == 0)
+                    this->tab = true;
                 else if(Arguments[i].compare("-help")==0)
                 {
                     cout << "-in nome_arquivo , use para especificar o nome da particao \n";

@@ -284,32 +284,33 @@ void Fat::imprimirArquivoCompleto(int bloco)
 // METODO AINDA NAO VALIDADO. //TODO, verificar o correto funcionamento
 void Fat::listarTabelaDiretorios()
 {
-    char *palavras = new char[32];//cada entrada do diretorio contem 32 bytes
-    unsigned short int endereco;
-    register int i;//contador do laco for
-    Reader.seekg(this->posicaoDiretorioArquivos, ios::beg);//ios::beg e para dar o seek a partir do inicio do arquivo
-    cout << "nº"<<"  Nome   "<<"      Bloco inicial"<<endl;
-    for(i =0;i<20;i++)
-    {
-        Reader.read(palavras, 32);//le 3 bytes por vez, colocando cada  byte em cada posicao do vetor palavras
-        if(!palavras[0]==0)//entrada esta vazia, nao precisa printar
-        {
-            cout <<dec<< i+1;
-            if(palavras[0]=='A')//0xe5 = 229 , arquivo deletado, mas ainda esta com as informacoes no bloco
-            {
-                cout << " deletado ";
-            }
-            else
-            {
-                cout << " "<<palavras[0] << palavras[1] << palavras[2]<< palavras[3]<< palavras[4]<<palavras[5];
-                cout << palavras[6] << palavras[7] <<"."<< palavras[8]<< palavras[9]<< palavras[10];
-            }
-            endereco = palavras[27];
-            endereco = endereco << 8;//abre espaco para concatenar a proxima palavra (8 bits)
-            endereco = endereco | palavras[26];
-            cout <<"             "<< endereco<<endl;
-        }
-    }
+	char *palavras = new char[64];//cada entrada do diretorio contem 64 bytes
+	    unsigned short int endereco;
+	    unsigned char deletado = 0xe5;
+	    register int i;//contador do laco for
+	    Reader.seekg(this->posicaoDiretorioArquivos, ios::beg);//ios::beg e para dar o seek a partir do inicio do arquivo
+	    cout << "nº"<<"  Nome   "<<"      Bloco inicial"<<endl;
+	    for(i =0;i<numeroMaximoArquivos/2;i++)
+	    {
+	        Reader.read(palavras, 64);//le 3 bytes por vez, colocando cada  byte em cada posicao do vetor palavras
+	        if(!palavras[0]==0)//entrada esta vazia, nao precisa printar
+	        {
+	            cout <<dec<< i+1;
+	            if(palavras[0]-'0' & 'b')//0xe5 = 229 , arquivo deletado, mas ainda esta com as informacoes no bloco
+	            {
+	                cout << " deletado ";
+	            }
+	            else
+	            {
+	                cout << " "<<palavras[32] << palavras[33] << palavras[34]<< palavras[35]<< palavras[36]<<palavras[37];
+	                cout << palavras[38] << palavras[39] <<"."<< palavras[40]<< palavras[41]<< palavras[42];
+	            }
+	            endereco = palavras[59];
+	            endereco = endereco << 8;//abre espaco para concatenar a proxima palavra (8 bits)
+	            endereco = endereco | palavras[58];
+	            cout <<"             "<< endereco<<endl;
+	        }
+	    }
 
 }
 
