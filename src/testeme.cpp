@@ -21,11 +21,9 @@
  * para verificar seu uid e seu gid digite na linha de comando: ps -p $$ -o "gid uid"
  * RESTRICOES DE PARTICOES FAT12:
  * - 12 bits cada entrada
- * - 16MB tamanho maximo de arquivo
  * - 12 caracters para o nome de cada arwquivo, 8 para nome 1 para o ponto e 3 para extensao
  * - 2^12 clusters  = 4.096 (4K) clusters ou unidades de alocação ( que são um um grupo de setores (do disco))
  * - cluster sizes 512b to 4k
- * - 2GB tamanho maximo da particao, por isso ainda usado em pen-drives cartoes ssd etc.
  * - Os volumes FAT não diferenciam maiúsculas de minúsculas.
  * artigo sobre discos que fala algo sobre a fat:
  * http://www.clubedohardware.com.br/artigos/Limites-de-Capacidade-dos-Discos-Rigidos/1420/3
@@ -53,7 +51,6 @@ void printaItensSelecionados(Parser *argumentos) {
     cout << endl;
 }
 
-//-in /home/pargles/Documentos/disco -inf -vf -bl -la 12
 int main(int argc, char * argv[]) {
 	Parser *comandos = new Parser();
 	FatAnalyser *fatAnalyzer;

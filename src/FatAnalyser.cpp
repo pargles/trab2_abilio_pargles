@@ -17,23 +17,23 @@ FatAnalyser::FatAnalyser(Parser *parse) {
  */
 void FatAnalyser::run() {
     FAT->inserirEntradasFat();//apenas o metodo ler bloco nao precisa das entradas, os outros 3 metodos necessitam,
-    // portando elas as entradas sao alocadas em vetores antes de iniciar a execucao do programa
-    FAT->listarEntradasFAT();
+    // portando as entradas sao alocadas em vetores antes de iniciar a execucao do programa
+    //FAT->listarEntradasFAT();
     //FAT->fliparBitsFAT2();
-    if(parser->listarTabelaDiretorios())
-        FAT->listarTabelaDiretorios(); //----> METODO AINDA NAO VALIDADO
     if(parser->listarInformacoes())
         FAT->listarInformacoesCabecalho();
+    if(parser->listarTabelaDiretorios())
+        FAT->listarTabelaDiretorios(); //----> METODO AINDA NAO VALIDADO
     if (parser->verificaFats())
         verificarParticoesFat();
     if (parser->blocosLivres())
         imprimiListaDeBlocosLivres();
-    if (parser->blocoComDados())
-        imprimirListaDeBlocosComDados();
     if (parser->lerBloco())
         lerBloco(parser->getNumeroDoBloco());
     if (parser->listarArquivo())
         listarArquivo(parser->getNumeroBlocoArquivo());
+    if (parser->blocoComDados())
+        imprimirListaDeBlocosComDados();
     FAT->fecharReader();
 }
 
@@ -47,7 +47,6 @@ void FatAnalyser::run() {
 	@author pargles and abilio
 */
 void FatAnalyser::verificarParticoesFat() {
-    //FAT->listarEntradasFAT();
     //FAT->fliparBitsFAT2();//TODO, desativar esse metodo na versao final, e so pra teste
     FAT->diferenciarFATs();
 

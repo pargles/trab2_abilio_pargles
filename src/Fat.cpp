@@ -1,5 +1,5 @@
 #include <vector>
-
+#include <math.h>//para a funcao fmode(retorna o modulo de um float)
 #include "../inc/Fat.h"
 
 /**
@@ -79,9 +79,10 @@ void Fat::listarBloco(int numeroBloco)
     char *byte = new char[1];
     unsigned char temp;
     if(numeroBloco<=1){cerr<<"Os blocos 0 e 1 nao são enderecaveis";exit(1);}
-    Reader.seekg((numeroBloco-2)*tamanhoCadaBloco + posicaoInicialDados, ios::beg);//ios::beg e para dar o seek a partir do inicio do arquivo
+    numeroBloco -=2;//o primeiro bloco enderecavel inicia em 2
+    Reader.seekg(numeroBloco*tamanhoCadaBloco + posicaoInicialDados, ios::beg);//ios::beg e para dar o seek a partir do inicio do arquivo
     for (register int i = 0; i < tamanhoCadaBloco; i++) {
-        Reader.read(byte, 1);//le byte por byte do arquivo 1 e um byte
+        Reader.read(byte, 1);//le byte por byte do arquivo e printa
         temp = byte[0];
         cout <<hex<<temp;
     }
@@ -137,11 +138,17 @@ void Fat::inserirEntradasFat()
 {
     char *palavras = new char[3];
     unsigned char quatrobitsA;
-    unsigned char quatrobitsB; unsigned char a; unsigned  char b; unsigned char c;
+    unsigned char quatrobitsB;
+    int quantidadeDeEntradasFat = bytesPorSetor*quantidadeSetoresFat;
+    while(fmod(quantidadeDeEntradasFat,1.5)!=0.0)//cada entrada necessita 12 bits = 1,5 byte, logo pode nao dar um numero inteiro de enrtadas, exemplo: sistema de arquivo de 1MB
+    {
+        quantidadeDeEntradasFat--;
+    }
+    quantidadeDeEntradasFat = quantidadeDeEntradasFat/1.5;//atualiza a quantidade de entradas validas que a fat vai ter
     Reader.seekg(posicaoInicialFat, ios::beg);//ios::beg e para dar o seek a partir do inicio do arquivo
     unsigned short int entrada12bits;
     register int i;
-    for(i =0;i<bytesPorSetor*quantidadeSetoresFat;i+=3)//le tres bytes por vez, ou seja, 24 bits por vez, ou seja, duas entradas de 12 bits pro vez
+    for(i =0;i<quantidadeDeEntradasFat/2;i++)//divide por dois pois inserimos no vetor de entradas duas palavras por vez
     {
         entrada12bits = 0;
         quatrobitsA=0;
@@ -173,7 +180,7 @@ void Fat::inserirEntradasFat()
 void Fat::listarEntradasFAT()
 {
     cout << "ENTRADA  |     FAT1       | FAT2        |"<<endl;
-    for(register int i = 0 ;i<this->vetorDeEntradasFat1.size();i++)
+    for(register int i = 0 ;i<this->vetorDeEntradasFat1.size();i++)//
     {
         cout << i <<dec<< " :            " << vetorDeEntradasFat1[i]<< "          ";
         cout << vetorDeEntradasFat2[i]<<endl;
@@ -270,6 +277,13 @@ bool Fat::eBlocoComDados(int numeroBloco)
     }
 }
 
+/**
+*	@brief metodo que imprime todo um arquivo sem formatacao
+ *      a partir de um bloco inicial, o bloco onde inicia cada arquivo
+ *      pode ser exibido atraves da flag -tabv
+ *      @param numero do bloco inicial do arquivo
+*	@author pargles and abilio
+*/
 void Fat::imprimirArquivoCompleto(int bloco)
 {
     int blocoAtual = bloco;
@@ -286,7 +300,6 @@ void Fat::listarTabelaDiretorios()
 {
 	char *palavras = new char[64];//cada entrada do diretorio contem 64 bytes
 	    unsigned short int endereco;
-	    unsigned char deletado = 0xe5;
 	    register int i;//contador do laco for
 	    Reader.seekg(this->posicaoDiretorioArquivos, ios::beg);//ios::beg e para dar o seek a partir do inicio do arquivo
 	    cout << "nº"<<"  Nome   "<<"      Bloco inicial"<<endl;
