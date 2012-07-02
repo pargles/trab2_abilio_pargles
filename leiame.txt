@@ -1,17 +1,60 @@
-@authors: Abilio Parada e Pargles Dall'Oglio
+Trabalho desenvolvido para a disciplina de Sistemas Operacionais I
+         Professor: Maurício Lima Pilla
 
-OBS 1: o Parser nao trata argumentos invalidos, segue apenas a especificao definida em :
+Alunos: Abilio Parada 
+		Pargles Dall'Oglio
+
+OBS 1: O Parser nao trata argumentos invalidos, segue apenas a especificao definida em :
 https://docs.google.com/a/inf.ufpel.edu.br/viewer?a=v&pid=sites&srcid=aW5mLnVmcGVsLmVkdS5icnxwaWxsYXxneDo1YjgxMTE3MjFhY2U1OTA4
 
-OBS 2: Como nao foi definido o sistema de arquivos default na especificao do trabalho, a flag -in foi definada para passar por 
+OBS 2: Como não foi definido o sistema de arquivos default na especificao do trabalho, a flag -in foi definada para passar por 
 parametro o endereco do sistema de arquivos.
 
 OBS 3: a flag -help foi definida para listar todas as opcoes validas.
 
 Testes realizados:
+	Para certificação do correto funcionamento do programa desenvolvido foram realizados os seguintes testes
+	Testes realizados com discos de 2MB, 1,5MB e de 1MB.
+	 
+	Para os testes foram criados 6 arquivos, contendo texto puro, de tamanhos variados, sendo:
+	Arq1 - 1.6 KB
+	Arq2 - 2.2 KB
+	Arq3 - 4.1 KB
+	Arq4 - 7.8 KB
+	Arq5 - 8.5 KB
+	Arq6 - 10.4 KB
 
-
-
+	Foram realizados testes nos disco para cada flag (vf, bl, bd, lb n, la n, tab), 
+	testados com discos criados nas seguintes formas:
+	
+	Discos de 2M:
+	 Vazio
+	 Lotado (256 Arquivos)
+	 Arq1		
+     Todos (Arq1, Arq2, Arq3, Arq4, Arq5, Arq6)
+     Todos Apagados ~(Arq1, Arq2, Arq3, Arq4, Arq5, Arq6)
+     Arq1 e Arq2 e Arq3
+     Todos Apagados exceto Arq2 e Arq3
+     Todos Apagados exceto Arq1
+     Todos Apagados exceto Arq4
+     Todos Apagados exceto Arq6
+	
+	Discos de 1,5M:
+	 Vazio
+	 Arq1 e Arq2 e Arq3		
+     Todos (Arq1, Arq2, Arq3, Arq4, Arq5, Arq6)
+     Todos Apagados ~(Arq1, Arq2, Arq3, Arq4, Arq5, Arq6)
+     Todos Apagados exceto Arq3
+     Arq6
+	
+	Discos de 1M:
+	 Vazio
+	 Arq3 e Arq4 e Arq1		
+     Todos (Arq1, Arq2, Arq3, Arq4, Arq5, Arq6)
+     Todos Apagados ~(Arq1, Arq2, Arq3, Arq4, Arq5, Arq6)
+     Todos Apagados exceto Arq3
+     Arq6
+     
 Referências utilizadas:
 
 [1] "The Fat File Systems", diponível em : <http://www.c-jump.com/CIS24/Slides/FAT/lecture.html>

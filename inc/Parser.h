@@ -8,9 +8,12 @@
 using namespace std;
 
 /**
-	@brief Responsável por separar os parametros que vao ser informados quando o programa for chamado.
-	@author pargles and abilio
-*/ 
+ *@file Parser.h
+ *@brief Responsável por separar os parametros que vao ser informados quando o programa for chamado.
+ *
+ *@author Pargles
+ *@author Abilio
+ */
 class Parser {
 
 	private:

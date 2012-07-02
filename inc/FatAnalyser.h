@@ -7,8 +7,11 @@
 #include <cmath>
 
 /**
-        @brief Contem os metodos para analisar as particoes FAT12
-        @author pargles and abilio
+ *@file FatAnalyser.h
+ *@brief Contem os metodos para analisar as particoes FAT12
+ *
+ *@author Pargles
+ *@author Abilio
  */
 class FatAnalyser {
 private:
