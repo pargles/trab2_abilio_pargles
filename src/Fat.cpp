@@ -422,6 +422,8 @@ void Fat::listarTabelaDiretorios() {
 			//abre espaco para concatenar a proxima palavra (8 bits)
 			endereco = endereco << 8;
 			endereco = endereco | palavras[58];
+                        endereco = endereco << 4;//garante que nao tenha lixo nos ultimos quatro bits
+                        endereco = endereco >>4;//zera os ultimos quatro bits
 			cout << "             " << endereco << endl;
 		}
 	}
