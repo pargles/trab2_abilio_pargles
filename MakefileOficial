@@ -17,7 +17,7 @@ OBJDIR= obj
 
 SRC=    $(wildcard $(SRCDIR)/*.cpp)
 OBJ=    $(SRC:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o$(SUFFIX))
-BIN=    $(BINDIR)/$(NAME).exe
+BIN=    $(BINDIR)/$(NAME)
 
 all: clean objdir_mk bindir_mk bin
 

@@ -57,38 +57,6 @@
 
 /**
  *@file testeme.cpp
- *@brief Imprime os itens selecionados na passagem do argumento
- *
- *@param Parser contendo os argumentos selecionados
- *
- *@author Pargles
- *@author Abilio
- */
-void printaItensSelecionados(Parser *argumentos) {
-	cout << "Parametros" << endl;
-	cout << endl;
-	cout << "Verficar Fats: " << ((argumentos->verificaFats()) ? "Sim" : "Nao")
-		 << endl;
-
-	cout << "Imprimir Blocos Livres: "
-		 << (argumentos->blocosLivres() == 1 ? "Sim" : "Nao") << endl;
-
-	cout << "Imprimir Blocos Com Dados: "
-		 << (argumentos->blocoComDados() == 1 ? "Sim" : "Nao") << endl;
-
-	cout << "Ler Determinado Bloco: "
-		 << (argumentos->lerBloco() == 1 ? "Sim" : "Nao") << endl;
-
-	cout << "Bloco a ser listado: "
-		 << (argumentos->lerBloco() == 1 ?
-		 argumentos->getNumeroDoBloco() : -1)
-		 << endl;
-
-	cout << endl;
-}
-
-/**
- *@file testeme.cpp
  *@brief Inicializa o funcionamento do programa
  *		 Faz a leitura dos argumentos e a passagem
  *		 deste para o parser
@@ -114,15 +82,17 @@ int main(int argc, char * argv[]) {
 	for (int i = 0; i < argc; i++)
 		args.push_back(argv[i]);
 
-	/*
+        	/*
 	 *Faz a chamado do parser passando para ele
 	 * 	os argumento do vetor
 	 *Caso não tenha argumento insere a opção Help
 	 */
-	comandos->parse(args);
-	if (!args.size()) {
+        if (args.size()==1) {
 		args.push_back("-help");
+                comandos->parse(args);
+                exit(1);
 	}
+	comandos->parse(args);
 
 	fatAnalyzer = new FatAnalyser(comandos);
 	fatAnalyzer->run();

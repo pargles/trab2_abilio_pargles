@@ -198,7 +198,7 @@ void Parser::parse(vector<string> Arguments) {
 			cout << "-bl: Listar os Blocos Livres \n";
 			cout << "-bd: Listar os Indices dos Blocos Livres e com Conteudo \n";
 			cout << "-lb numero_bloco: Imprimir um bloco sem formatacao \n";
-			cout << "-vf: Verficar as Diferencas entre as Tabelas FAT1 e FAT2 \n";
+			cout << "-vf: Verificar as Diferencas entre as Tabelas FAT1 e FAT2 \n";
 			cout << "-la numero_bloco: Listar todo o Arquivo que comeca no Bloco (numero_bloco)\n";
 			cout << "-tab: Listar os Arquivos Presentes e Deletados\n";
 		}

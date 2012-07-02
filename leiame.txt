@@ -12,6 +12,10 @@ parametro o endereco do sistema de arquivos.
 
 OBS 3: a flag -help foi definida para listar todas as opcoes validas.
 
+OBS 4: o repositorio .git pode ser listado atraves do comando ls -a ou pelo atalho crtl+h,
+ainda assim o histórico de trabalho também pode ser acessado através do link abaixo:
+https://github.com/pargles/trab2_abilio_pargles/commits/master
+
 Testes realizados:
 	Para certificação do correto funcionamento do programa desenvolvido foram realizados os seguintes testes
 	Testes realizados com discos de 2MB, 1,5MB e de 1MB.
