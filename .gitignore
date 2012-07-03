@@ -11,3 +11,5 @@ dist
 bin
 obj
 .dep.inc
+src/.cproject
+src/.project

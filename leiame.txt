@@ -17,7 +17,7 @@ ainda assim o histórico de trabalho também pode ser acessado através do link 
 https://github.com/pargles/trab2_abilio_pargles/commits/master	
 
 Testes realizados:
-	Para certificação do correto funcionamento do programa desenvolvido foram realizados os seguintes testes:
+	Para certificação do correto funcionamento do programa, foram realizados os seguintes testes:
 	
 	Utilizamos um sistema de arquivo de 2M contendo setores de 512 bytes e blocos de 2048 bytes (4 setores),
         outras configurações também foram testadas mas não serão listadas abaixo por questões de espaço.
@@ -35,8 +35,7 @@ Testes realizados:
         que altera alguns bytes da FAT2. Então foi executado o programa através dos parametros abaixo:
 
         entrada: -in /home/abilio/disco -vf
-        saida:
-                DIF <10>:<4095>,<3937>
+        saida:  DIF <10>:<4095>,<3937>
                 DIF <15>:<16>,<784>
                 DIF <30>:<0>,<101>
                 DIF <136>:<0>,<53>
@@ -47,11 +46,11 @@ Testes realizados:
         entrada: testeme -in /home/abilio/disco -bl
         saida: LIVRE  2,24,25,26,27,28,29,30,31,32,33,34,35, ..., 1023
 
-        Posteriormente foram apagados os arquivos Arq1,Arq3,Arq4,Arq6 e entao executado o programa novamente:
+        Posteriormente foram apagados os arquivos Arq4 e Arq5 e entao executado o programa novamente:
         entrada: testeme -in /home/abilio/disco -bd
-        saida: REMOVIDOS 3,4,5,6,7,8,9,10,11,12,20,21,22,23
+        saida: REMOVIDOS 9,10,11,12,13,14,15,16,17
 
      
 Referências utilizadas:
 [1] - "The Fat File System", disponível em : http://www.c-jump.com/CIS24/Slides/FAT/lecture.html
-[2] - "Input/Output with files C++ ", disponível em : http://www.cplusplus.com/doc/tutorial/files/
+[2] - "Input/Output Files with C++ ", disponível em : http://www.cplusplus.com/doc/tutorial/files/
