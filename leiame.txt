@@ -12,54 +12,78 @@ parametro o endereco do sistema de arquivos.
 
 OBS 3: a flag -help foi definida para listar todas as opcoes validas.
 
+
 OBS 4: o repositorio .git pode ser listado atraves do comando ls -a ou pelo atalho crtl+h,
 ainda assim o histórico de trabalho também pode ser acessado através do link abaixo:
-https://github.com/pargles/trab2_abilio_pargles/commits/master
+https://github.com/pargles/trab2_abilio_pargles/commits/master	
 
 Testes realizados:
 	Para certificação do correto funcionamento do programa desenvolvido foram realizados os seguintes testes
 	Testes realizados com discos de 2MB, 1,5MB e de 1MB.
 	 
 	Para os testes foram criados 6 arquivos, contendo texto puro, de tamanhos variados, sendo:
-	Arq1 - 1.6 KB
-	Arq2 - 2.2 KB
-	Arq3 - 4.1 KB
-	Arq4 - 7.8 KB
-	Arq5 - 8.5 KB
-	Arq6 - 10.4 KB
+	Nome   Tamanho 
+	Arq1 - 1.6 KB  
+	Arq2 - 2.2 KB  
+	Arq3 - 4.1 KB  
+	Arq4 - 7.8 KB  
+	Arq5 - 8.5 KB  
+	Arq6 - 10.4 KB 
 
 	Foram realizados testes nos disco para cada flag (vf, bl, bd, lb n, la n, tab), 
 	testados com discos criados nas seguintes formas:
 	
 	Discos de 2M:
-	 Vazio
-	 Lotado (256 Arquivos)
-	 Arq1		
-     Todos (Arq1, Arq2, Arq3, Arq4, Arq5, Arq6)
-     Todos Apagados ~(Arq1, Arq2, Arq3, Arq4, Arq5, Arq6)
-     Arq1 e Arq2 e Arq3
-     Todos Apagados exceto Arq2 e Arq3
-     Todos Apagados exceto Arq1
-     Todos Apagados exceto Arq4
-     Todos Apagados exceto Arq6
-	
-	Discos de 1,5M:
-	 Vazio
-	 Arq1 e Arq2 e Arq3		
-     Todos (Arq1, Arq2, Arq3, Arq4, Arq5, Arq6)
-     Todos Apagados ~(Arq1, Arq2, Arq3, Arq4, Arq5, Arq6)
-     Todos Apagados exceto Arq3
-     Arq6
-	
-	Discos de 1M:
-	 Vazio
-	 Arq3 e Arq4 e Arq1		
-     Todos (Arq1, Arq2, Arq3, Arq4, Arq5, Arq6)
-     Todos Apagados ~(Arq1, Arq2, Arq3, Arq4, Arq5, Arq6)
-     Todos Apagados exceto Arq3
-     Arq6
+	 Todos (Arq1, Arq2, Arq3, Arq4, Arq5, Arq6) 21 
+     bl - Livres
+       2,24, ..., 1023 
      
-Referências utilizadas:
-
-[1] "The Fat File Systems", diponível em : <http://www.c-jump.com/CIS24/Slides/FAT/lecture.html>
-[2] "Input/Output with files", disponível em : <http://www.cplusplus.com/doc/tutorial/files/>
+     Todos Apagados exceto Arq2 e Arq3
+     bl - Livres
+       2,..., 12, 20,...,1023
+     bd - Blocos Removidos mas com dados
+       3, ..., 11, 21,..., 24
+       
+     Para testes de diferença de disco (-vf) foi utilizado a função "fliparBitsFAT2" de Fat.cpp
+     A função foi testada tendo como entrada o disco com todos arquivos 
+     vf - Verificar Fats
+        ENTRADA  |     FAT1       | FAT2        |
+		0 :            4088          4088
+		1 :            4095          4095
+		2 :            0          0
+		3 :            4095          4095
+		4 :            5          5
+		5 :            4095          4095
+		6 :            7          7
+		7 :            8          8
+		8 :            9          9
+		9 :            10          10
+		10 :            4095          3937
+		11 :            12          12
+		12 :            13          13
+		13 :            14          14
+		14 :            15          15
+		15 :            16          784
+		16 :            4095          4095
+		17 :            18          18
+		18 :            19          19
+		19 :            20          20
+		20 :            4095          4095
+		21 :            22          22
+		22 :            23          23
+		23 :            4095          4095
+		24 :            0          0
+		25 :            0          0
+         .
+         .
+         .
+        1023 :          0          0
+        
+        DIF <10>:<4095>,<3937>
+		DIF <15>:<16>,<784>
+		DIF <30>:<0>,<101>
+		DIF <136>:<0>,<53>
+		DIF <402>:<0>,<2304>
+		DIF <403>:<0>,<3>
+     
+     
