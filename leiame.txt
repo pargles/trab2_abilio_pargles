@@ -45,11 +45,11 @@ Testes realizados:
 
         Depois foram listados os blocos livres através do comando:
         entrada: testeme -in /home/abilio/disco -bl
-        saida: LIVRE 1,5,6,7
+        saida: LIVRE 2,..., 12, 20,...,1023
 
-        Posteriormente foram apagados os arquivos x1 x2... e entao executado o programa novamente:
+        Posteriormente foram apagados os arquivos Arq1,Arq3,Arq4,Arq6 e entao executado o programa novamente:
         entrada: testeme -in /home/abilio/disco -bd
-        saida: REMOVIDOS 1,5,6,7
+        saida: REMOVIDOS 3, ..., 11, 21,..., 24
 
      
 Referências utilizadas:
