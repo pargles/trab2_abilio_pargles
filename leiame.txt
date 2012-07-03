@@ -12,16 +12,17 @@ parametro o endereco do sistema de arquivos.
 
 OBS 3: a flag -help foi definida para listar todas as opcoes validas.
 
-
 OBS 4: o repositorio .git pode ser listado atraves do comando ls -a ou pelo atalho crtl+h,
 ainda assim o histórico de trabalho também pode ser acessado através do link abaixo:
 https://github.com/pargles/trab2_abilio_pargles/commits/master	
 
 Testes realizados:
-	Para certificação do correto funcionamento do programa desenvolvido foram realizados os seguintes testes
-	Testes realizados com discos de 2MB, 1,5MB e de 1MB.
-	 
-	Para os testes foram criados 6 arquivos, contendo texto puro, de tamanhos variados, sendo:
+	Para certificação do correto funcionamento do programa desenvolvido foram realizados os seguintes testes:
+	
+	Utilizamos um sistema de arquivo de 2M contendo setores de 512 bytes e blocos de 2048 bytes (4 setores),
+        outras configurações também foram testadas mas não serão listadas abaixo por questões de espaço.
+
+        Foram criados 6 arquivos, contendo texto puro, de tamanhos variados, sendo:
 	Nome   Tamanho 
 	Arq1 - 1.6 KB  
 	Arq2 - 2.2 KB  
@@ -29,61 +30,28 @@ Testes realizados:
 	Arq4 - 7.8 KB  
 	Arq5 - 8.5 KB  
 	Arq6 - 10.4 KB 
-
-	Foram realizados testes nos disco para cada flag (vf, bl, bd, lb n, la n, tab), 
-	testados com discos criados nas seguintes formas:
-	
-	Discos de 2M:
-	 Todos (Arq1, Arq2, Arq3, Arq4, Arq5, Arq6) 21 
-     bl - Livres
-       2,24, ..., 1023 
-     
-     Todos Apagados exceto Arq2 e Arq3
-     bl - Livres
-       2,..., 12, 20,...,1023
-     bd - Blocos Removidos mas com dados
-       3, ..., 11, 21,..., 24
        
-     Para testes de diferença de disco (-vf) foi utilizado a função "fliparBitsFAT2" de Fat.cpp
-     A função foi testada tendo como entrada o disco com todos arquivos 
-     vf - Verificar Fats
-        ENTRADA  |     FAT1       | FAT2        |
-		0 :            4088          4088
-		1 :            4095          4095
-		2 :            0          0
-		3 :            4095          4095
-		4 :            5          5
-		5 :            4095          4095
-		6 :            7          7
-		7 :            8          8
-		8 :            9          9
-		9 :            10          10
-		10 :            4095          3937
-		11 :            12          12
-		12 :            13          13
-		13 :            14          14
-		14 :            15          15
-		15 :            16          784
-		16 :            4095          4095
-		17 :            18          18
-		18 :            19          19
-		19 :            20          20
-		20 :            4095          4095
-		21 :            22          22
-		22 :            23          23
-		23 :            4095          4095
-		24 :            0          0
-		25 :            0          0
-         .
-         .
-         .
-        1023 :          0          0
-        
-        DIF <10>:<4095>,<3937>
-		DIF <15>:<16>,<784>
-		DIF <30>:<0>,<101>
-		DIF <136>:<0>,<53>
-		DIF <402>:<0>,<2304>
-		DIF <403>:<0>,<3>
+        Para testar a diferença entre duas FATs (-vf) foi utilizado o método "fliparBitsFAT2" da classe Fat.cpp
+        que altera alguns bytes da FAT2. Então foi executado o programa através dos parametros abaixo:
+
+        entrada: -in /home/abilio/disco -vf
+        saida:
+                DIF <10>:<4095>,<3937>
+                DIF <15>:<16>,<784>
+                DIF <30>:<0>,<101>
+                DIF <136>:<0>,<53>
+                DIF <402>:<0>,<2304>
+                DIF <403>:<0>,<3>
+
+        Depois foram listados os blocos livres através do comando:
+        entrada: testeme -in /home/abilio/disco -bl
+        saida: LIVRE 1,5,6,7
+
+        Posteriormente foram apagados os arquivos x1 x2... e entao executado o programa novamente:
+        entrada: testeme -in /home/abilio/disco -bd
+        saida: REMOVIDOS 1,5,6,7
+
      
-     
+Referências utilizadas:
+[1] - "The Fat File System", disponível em : http://www.c-jump.com/CIS24/Slides/FAT/lecture.html
+[2] - "Input/Output with files C++ ", disponível em : http://www.cplusplus.com/doc/tutorial/files/

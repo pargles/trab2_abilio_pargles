@@ -83,7 +83,7 @@ void Fat::inicializarInformacoesCabecalho() {
  *@author Abilio
  */
 void Fat::listarInformacoesCabecalho() {
-	cout << "Numero Maximo de Arquivos: " << dec << numeroMaximoArquivos << endl;
+	cout << "Numero Maximo de Arquivos: " << dec << numeroMaximoArquivos/2 << endl;
 	cout << "Bytes por Setor: " << dec << bytesPorSetor << endl;
 	cout << "Setores por Bloco: " << dec << setoresPorBloco << endl;
 	cout << "Setores para o Cabecalho: " << dec << quantidadeSetoresCabecalho << endl;
